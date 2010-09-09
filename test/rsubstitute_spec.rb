@@ -1,5 +1,6 @@
 ﻿require_relative '../lib/rsubstitute.rb'
 require 'spec'
+require 'shoulda'
 
 describe "when method is called on substitute" do
     before do
@@ -44,8 +45,8 @@ describe "when setting a return value for a method" do
     it "returns a new value when a new value is set for the method" do
         @sub.some_method(1).returns(5)
         result = @sub.some_method(1)
-        result.should_not == @value_to_return
-        result.should == 5
+        result.should_not equal @value_to_return
+        result.should equal 5
     end
 
 end
