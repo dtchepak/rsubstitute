@@ -20,7 +20,13 @@ describe "when method is called on substitute" do
 
     it "throws when the same method with different args was received" do
         lambda {
-            @sub.received.some_method("a")
+            @sub.received.some_method(999)
+        }.should raise_exception
+    end
+
+    it "throws when the same method with different number of args was received" do
+        lambda {
+            @sub.received.some_method(123, 2345, 456)
         }.should raise_exception
     end
 end
@@ -34,12 +40,12 @@ describe "when setting a return value for a method" do
 
     it "returns that value when called" do
         result = @sub.some_method(1)
-        result.should == @value_to_return
+        result.should equal @value_to_return
     end
 
     it "returns something else when called with different args" do
         result = @sub.some_method(2)
-        result.should != @value_to_return
+        result.should_not equal @value_to_return
     end
 
     it "returns a new value when a new value is set for the method" do

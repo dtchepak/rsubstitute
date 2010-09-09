@@ -1,18 +1,16 @@
 ﻿class Call
-    def initialize(method, *args, &block)
-        @method, @args, @block = method, args, block
+    def initialize(method, args)
+        @method, @args = method, args
     end
 
-    def matches(method, *args, &block)
+    def matches(method, args)
         @method == method and args_match(args)
     end
 
     private
 
     def args_match(args)
-        return true if @args == args
-        return false if @args.nil? or args.nil?
-        return @args <=> args
+        @args == args
     end
 end
 
@@ -40,13 +38,13 @@ class Substitute
     def method_missing(method, *args, &block)
         assert_was_received = @assert_next
         @assert_next = false
-        if assert_was_received and not @calls.any? {|x| x.matches(method, args, block)}
+        if assert_was_received and not @calls.any? {|x| x.matches(method, args)}
             raise "Call #{method} not received with specified args"
         end
 
-        @calls << Call.new(method, args, block)
+        @calls << Call.new(method, args)
         matching_result_pair = @results.reverse.find do |x| 
-                            x[0].matches(method, args, block)
+                            x[0].matches(method, args)
                         end
         if (matching_result_pair.nil?)
             value_to_return = Object.new
