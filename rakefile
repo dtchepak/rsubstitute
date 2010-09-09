@@ -3,9 +3,14 @@ require 'rake/gempackagetask'
 require 'rubygems'
 require 'spec/rake/spectask'
 
+def get_build_version
+  version_tag = /v(\d+)\.(\d+)\.(\d+)\-(\d+)/.match(`git describe --tags --long --match v*`.chomp)
+  "#{version_tag[1]}.#{version_tag[2]}.#{version_tag[3]}"
+end
+
 gem_spec = Gem::Specification.new do |s|
   s.name = 'rsubstitute'
-  s.version = '0.0.1'
+  s.version = get_build_version()
   s.has_rdoc = false
   s.summary = 'An experimental, friendly substitute for Ruby mocking frameworks.'
   s.description = 'An attempt to bring simple Arrange Act Assert mocking to Ruby. No strict mocks. No hassles. This is currently only an experiment from someone that knows virtually nothing about Ruby; use at your own risk!'
@@ -29,3 +34,4 @@ Spec::Rake::SpecTask.new(:run_specs) do |t|
 end
 
 task :default  => :run_specs
+
