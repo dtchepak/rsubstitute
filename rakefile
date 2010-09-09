@@ -8,6 +8,7 @@ gem_spec = Gem::Specification.new do |s|
   s.version = '0.0.1'
   s.has_rdoc = false
   s.summary = 'An experimental, friendly substitute for Ruby mocking frameworks.'
+  s.description = 'An attempt to bring simple Arrange Act Assert mocking to Ruby. No strict mocks. No hassles. This is currently only an experiment from someone that knows virtually nothing about Ruby; use at your own risk!'
   s.homepage = "http://github.com/dtchepak/rsubstitute"
   s.author = 'David Tchepak'
   s.email = 'dave@davesquared.net'
